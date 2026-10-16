@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10111d">
+<title>Moments — Your Story, Your Way</title>
+<style>
+:root{--bg:#10111d;--panel:#191b2b;--ink:#f7f6ff;--muted:#b8bad0;--accent:#c5a8ff;--accent2:#ffb7d5;--line:rgba(255,255,255,.12);--radius:24px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#292342 0,transparent 42%),radial-gradient(ellipse at 95% 15%,#1e3040 0,transparent 34%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}button,input,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1120px,calc(100% - 36px));margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#171326;font-size:20px}.topbar a{color:var(--muted);text-decoration:none;font-size:.92rem}.hero{padding:54px 0 30px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:42px}.eyebrow{color:var(--accent2);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em}.hero h1{font-size:clamp(2.7rem,6vw,5.3rem);line-height:.99;letter-spacing:-.065em;margin:16px 0 22px}.gradient-text{background:linear-gradient(100deg,#e4d5ff,#ffbed8 65%,#ffd9a8);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:540px;font-size:1.08rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.btn{border:1px solid var(--line);border-radius:999px;padding:12px 18px;color:var(--ink);background:rgba(255,255,255,.06);font-weight:700;transition:transform .2s,background .2s}.btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.12)}.btn.primary{border:0;color:#191326;background:linear-gradient(120deg,#d7c2ff,#ffc6dc)}.hero-art{min-height:370px;position:relative;display:grid;place-items:center}.orbit{position:absolute;width:310px;height:310px;border:1px solid rgba(255,255,255,.13);border-radius:50%;animation:spin 30s linear infinite}.orbit:before,.orbit:after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:var(--accent2);box-shadow:0 0 24px var(--accent2)}.orbit:before{top:30px;left:45px}.orbit:after{bottom:30px;right:22px;background:var(--accent)}.art-card{position:relative;width:min(290px,80%);height:350px;border-radius:28px;overflow:hidden;transform:rotate(-5deg);background:linear-gradient(155deg,#d8c6ff,#f9b9d7 55%,#f4d6a4);box-shadow:0 30px 90px #05050b99;display:flex;flex-direction:column;justify-content:space-between;padding:23px;color:#2a1c36}.art-card:before{content:"";position:absolute;inset:16px;border:1px solid #3a234855;border-radius:18px}.art-spark{font-size:3.6rem;align-self:flex-end;z-index:1}.art-copy{z-index:1}.art-copy small{letter-spacing:.18em;text-transform:uppercase;font-weight:800}.art-copy strong{display:block;font-family:Georgia,serif;font-size:2.7rem;line-height:1.05;margin-top:8px}.floating-note{position:absolute;right:0;bottom:35px;padding:14px 18px;border:1px solid var(--line);border-radius:17px;background:#1a1b2ddd;backdrop-filter:blur(12px);box-shadow:0 15px 40px #0004;font-size:.88rem}.section{padding:44px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:22px}.section-head h2{font-size:clamp(1.7rem,4vw,2.5rem);letter-spacing:-.04em;margin:6px 0}.muted{color:var(--muted)}.workspace{border:1px solid var(--line);background:linear-gradient(145deg,#1b1c2cdd,#131421ee);border-radius:28px;padding:clamp(16px,3vw,28px);box-shadow:0 24px 80px #0002}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab{padding:9px 13px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);font-size:.88rem}.tab.active{background:var(--accent);color:#20172d;border-color:transparent;font-weight:800}.tools{display:flex;gap:8px;flex-wrap:wrap}.tools .btn{padding:9px 13px;font-size:.86rem}.stage{position:relative;min-height:390px;border-radius:22px;overflow:hidden;background:linear-gradient(130deg,#332a51,#4a3048 50%,#223b4c);display:grid;place-items:center;isolation:isolate}.stage:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 20% 20%,#e2c7ff33,transparent 32%),radial-gradient(circle at 80% 80%,#ffc6dc30,transparent 35%)}.stage.scrapbook{background:linear-gradient(130deg,#4a342d,#48364d,#293e45)}.stage.cinema{background:linear-gradient(130deg,#101521,#282438,#101521)}.stage.polaroid{background:linear-gradient(130deg,#334239,#5b4c46,#353a51)}.stage-inner{width:min(760px,92%);display:flex;align-items:center;justify-content:center;gap:18px;min-height:330px;padding:30px 0}.media-frame{position:relative;width:min(510px,100%);height:320px;border:1px solid #ffffff33;border-radius:18px;overflow:hidden;background:linear-gradient(140deg,#b6a0d8,#e5b7cc 48%,#d7c6a0);box-shadow:0 25px 55px #0005;display:grid;place-items:center;transition:all .35s}.stage.scrapbook .media-frame{transform:rotate(-2deg);border:8px solid #fff5e9;border-radius:4px}.stage.polaroid .media-frame{border:10px solid #fffaf0;border-bottom-width:40px;border-radius:3px;transform:rotate(2deg)}.stage.cinema .media-frame{border-radius:7px;border:2px solid #ffffff35;box-shadow:0 0 0 8px #0005,0 25px 55px #0008}.media-frame img,.media-frame video{width:100%;height:100%;object-fit:cover;display:block}.empty-art{padding:24px;text-align:center;color:#281c38}.empty-art .emoji{font-size:3.2rem;display:block;margin-bottom:8px}.empty-art strong{font-family:Georgia,serif;font-size:1.65rem;display:block}.empty-art span{font-size:.9rem}.slide-caption{position:absolute;bottom:0;left:0;right:0;padding:45px 22px 17px;color:white;text-shadow:0 2px 12px #000b;background:linear-gradient(transparent,#0009);font-family:Georgia,serif;font-size:1.25rem}.stage.polaroid .slide-caption{position:static;color:#32283b;text-shadow:none;background:#fffaf0;text-align:center;padding:9px 5px 0}.stage.scrapbook .slide-caption{font-size:1.1rem}.nav-arrow{flex:0 0 42px;width:42px;height:42px;border-radius:50%;border:1px solid #ffffff45;background:#151521aa;color:white;font-size:1.2rem;display:grid;place-items:center;z-index:2}.stage-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;flex-wrap:wrap}.dots{display:flex;gap:6px;align-items:center}.dot{width:7px;height:7px;border:0;border-radius:99px;background:#66677b;padding:0}.dot.active{width:23px;background:var(--accent2)}.upload-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.upload-card{padding:19px;border:1px solid var(--line);border-radius:20px;background:#ffffff05}.upload-card .step{font-size:.74rem;font-weight:800;color:var(--accent2);letter-spacing:.12em}.upload-card h3{margin:8px 0 5px;font-size:1.08rem}.upload-card p{margin:0 0 14px;color:var(--muted);font-size:.88rem}.upload-card input[type=file]{width:100%;font-size:.8rem;color:var(--muted)}input[type=file]::file-selector-button{border:0;border-radius:10px;padding:8px 10px;margin-right:8px;background:#d8c5ff;color:#211a30;font-weight:700;cursor:pointer}.message-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}.field label{font-size:.86rem;color:var(--muted)}.field input,.field textarea{width:100%;background:#10111d;border:1px solid var(--line);border-radius:13px;padding:12px 13px;color:var(--ink);outline:none}.field input:focus,.field textarea:focus{border-color:var(--accent)}.field textarea{resize:vertical;min-height:115px}.message-preview{border:1px solid var(--line);border-radius:20px;padding:24px;background:linear-gradient(145deg,#2c2440,#1a2330);display:flex;flex-direction:column;justify-content:center;min-height:200px}.message-preview .quote{font-family:Georgia,serif;font-size:1.3rem;line-height:1.5}.message-preview .from{margin-top:15px;color:var(--accent2);font-weight:700}.music-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px;border:1px solid var(--line);border-radius:18px;background:#ffffff05}.music-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:#d9c6ff;color:#21172e;font-size:1.3rem}.music-info{flex:1;min-width:150px}.music-info strong{display:block}.music-info span{font-size:.85rem;color:var(--muted)}.notice{font-size:.84rem;color:var(--muted);margin-top:13px}.footer{border-top:1px solid var(--line);padding:25px 0 35px;margin-top:30px;color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#f5eaff;color:#21172e;padding:12px 17px;border-radius:999px;box-shadow:0 10px 30px #0005;transition:.25s;z-index:10;font-weight:700;font-size:.9rem}.toast.show{opacity:1;transform:translate(-50%,0)}.hidden{display:none!important}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:780px){.hero{grid-template-columns:1fr;padding-top:35px;gap:8px}.hero-art{min-height:320px}.art-card{height:290px}.orbit{width:260px;height:260px}.floating-note{right:2%;bottom:15px}.upload-grid{grid-template-columns:1fr}.message-grid{grid-template-columns:1fr}.stage{min-height:340px}.stage-inner{min-height:300px;gap:8px;width:98%;padding:20px 0}.media-frame{height:270px}.nav-arrow{flex-basis:34px;width:34px;height:34px}.section-head{align-items:start;flex-direction:column}}@media(max-width:440px){.wrap{width:calc(100% - 24px)}.topbar{padding:16px 0}.topbar a{font-size:.8rem}.hero h1{font-size:2.8rem}.hero-art{min-height:285px}.art-card{height:250px;width:235px}.art-copy strong{font-size:2.2rem}.stage{min-height:300px}.stage-inner{min-height:265px}.media-frame{height:230px}.empty-art strong{font-size:1.3rem}.slide-caption{font-size:1rem;padding:35px 12px 12px}.workspace{padding:12px}.toolbar{align-items:flex-start}.tools{width:100%}.tools .btn{flex:1}.footer{flex-direction:column}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header class="wrap topbar">
+  <a class="brand" href="#" aria-label="Moments home"><span class="brand-mark">✦</span><span>MOMENTS<span style="color:var(--accent2)">.</span></span></a>
+  <a href="#studio">Your creative studio <span aria-hidden="true">↘</span></a>
+</header>
+<main>
+  <section class="wrap hero">
+    <div>
+      <div class="eyebrow">A little place for your memories</div>
+      <h1>Your story.<br><span class="gradient-text">Your kind of magic.</span></h1>
+      <p>Turn your favorite photos, videos, music, and messages into a moving memory gallery. Pick a style, add your moments, and make it yours.</p>
+      <div class="actions"><a class="btn primary" href="#studio" style="text-decoration:none">Create your gallery ↗</a><a class="btn" href="#message">Write a message</a></div>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="orbit"></div><div class="art-card"><div class="art-spark">✦</div><div class="art-copy"><small>the little things</small><strong>Stay a<br>little longer.</strong></div><div style="z-index:1;font-size:.85rem">A collection of moments ♡</div></div><div class="floating-note">♫ &nbsp; memories sound better with music</div></div>
+  </section>
+  <section class="wrap section" id="studio">
+    <div class="section-head"><div><div class="eyebrow">01 / Make it yours</div><h2>Your moving memory gallery</h2><div class="muted">Choose a template, then browse your moments.</div></div><span class="muted" id="countLabel">01 / 01</span></div>
+    <div class="workspace">
+      <div class="toolbar"><div class="tabs" role="group" aria-label="Gallery templates"><button class="tab active" data-theme="dreamy">Dreamy</button><button class="tab" data-theme="scrapbook">Scrapbook</button><button class="tab" data-theme="polaroid">Polaroid</button><button class="tab" data-theme="cinema">Cinema</button></div><div class="tools"><button class="btn" id="playSlides" aria-pressed="false">▶ Auto-play</button><button class="btn" id="fullscreen">⛶ Fullscreen</button></div></div>
+      <div class="stage dreamy" id="stage"><div class="stage-inner"><button class="nav-arrow" id="prev" aria-label="Previous moment">‹</button><div class="media-frame" id="mediaFrame"><div class="empty-art"><span class="emoji">✧</span><strong>Your moments go here</strong><span>Add photos or videos below to begin.</span></div><div class="slide-caption" id="caption">Every little moment matters.</div></div><button class="nav-arrow" id="next" aria-label="Next moment">›</button></div></div>
+      <div class="stage-footer"><div class="muted" id="slideInfo">Your gallery is ready for its first memory.</div><div class="dots" id="dots" aria-label="Choose a moment"></div><button class="btn" id="removeMedia">Clear gallery</button></div>
+    </div>
+  </section>
+  <section class="wrap section" id="uploads">
+    <div class="section-head"><div><div class="eyebrow">02 / Add your memories</div><h2>Bring your moments to life</h2><div class="muted">Add as many photos or videos as you like. The gallery will move through them automatically when you press Auto-play.</div></div></div>
+    <div class="upload-grid">
+      <div class="upload-card"><div class="step">01 — VISUALS</div><h3>Photos & videos</h3><p>Select multiple images and video clips from your device.</p><input id="mediaUpload" type="file" accept="image/*,video/*" multiple aria-label="Upload photos and videos"></div>
+      <div class="upload-card"><div class="step">02 — SOUNDTRACK</div><h3>Your background music</h3><p>Choose an audio file you have permission to use, then press play.</p><input id="musicUpload" type="file" accept="audio/*" aria-label="Upload background music"></div>
+      <div class="upload-card"><div class="step">03 — WORDS</div><h3>A caption for this moment</h3><p>Change the caption shown on the current photo or video.</p><div class="field"><input id="captionInput" maxlength="100" placeholder="e.g. A day I'll always remember" aria-label="Current moment caption"></div><button class="btn" id="saveCaption">Save caption</button></div>
+    </div>
+    <p class="notice">Privacy note: selected photos, videos, and music are previewed in this browser; they are not uploaded to GitHub automatically. Keep a copy of your original files.</p>
+  </section>
+  <section class="wrap section" id="message">
+    <div class="section-head"><div><div class="eyebrow">03 / Say what matters</div><h2>Leave a little note</h2><div class="muted">Write something heartfelt to display alongside your memories.</div></div></div>
+    <div class="workspace message-grid">
+      <div><div class="field"><label for="messageText">Your message</label><textarea id="messageText" maxlength="600" placeholder="Some moments become memories, and some memories become a part of us..."></textarea></div><div class="field"><label for="messageFrom">From</label><input id="messageFrom" maxlength="80" placeholder="Your name or a little signature"></div><button class="btn primary" id="saveMessage">Update message ♡</button></div>
+      <div class="message-preview"><div class="eyebrow">A note from the heart</div><p class="quote" id="messagePreview">“Some moments become memories, and some memories become a part of us.”</p><div class="from" id="fromPreview">— With love</div></div>
+    </div>
+  </section>
+  <section class="wrap section" id="sound">
+    <div class="section-head"><div><div class="eyebrow">04 / Set the mood</div><h2>A soundtrack for your story</h2></div></div>
+    <div class="music-row"><div class="music-icon">♫</div><div class="music-info"><strong id="musicName">No music selected yet</strong><span id="musicStatus">Choose an audio file above to set the mood.</span></div><button class="btn primary" id="musicToggle" disabled>▶ Play music</button><button class="btn" id="musicStop" disabled>■ Stop</button></div>
+    <p class="notice">Browsers usually require you to start music with a click. Music will not autoplay when the page first opens.</p>
+  </section>
+</main>
+<footer class="wrap footer"><span>✦ MOMENTS — made for the things worth remembering.</span><span>Made with care · Your memories, your way</span></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<audio id="audio" loop></audio>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const stage = $('stage'), frame = $('mediaFrame'), caption = $('caption');
+  const items = [];
+  let current = 0, theme = 'dreamy', slideshow = false, timer = null, musicUrl = null;
+  const themeNames = {dreamy:'Dreamy',scrapbook:'Scrapbook',polaroid:'Polaroid',cinema:'Cinema'};
+  function toast(message){const t=$('toast');t.textContent=message;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2300)}
+  function cleanCaption(value){return (value||'').trim().slice(0,100)}
+  function render(){
+    const old = frame.querySelector('img,video'); if(old) old.remove();
+    const empty = frame.querySelector('.empty-art'); if(empty) empty.remove();
+    if(!items.length){
+      const emptyArt=document.createElement('div');emptyArt.className='empty-art';
+      const emoji=document.createElement('span');emoji.className='emoji';emoji.textContent='✧';
+      const title=document.createElement('strong');title.textContent='Your moments go here';
+      const hint=document.createElement('span');hint.textContent='Add photos or videos below to begin.';
+      emptyArt.append(emoji,title,hint);frame.insertBefore(emptyArt,caption);caption.textContent='Every little moment matters.';
+      $('countLabel').textContent='01 / 01';$('slideInfo').textContent='Your gallery is ready for its first memory.';$('dots').replaceChildren();$('captionInput').value='';return;
+    }
+    current=(current+items.length)%items.length; const item=items[current];
+    const media=document.createElement(item.type==='video'?'video':'img');
+    media.src=item.url; media.alt=item.name;
+    if(item.type==='video'){media.controls=true;media.playsInline=true;media.preload='metadata'}
+    frame.insertBefore(media,caption);
+    caption.textContent=item.caption||item.name.replace(/\.[^.]+$/,'');
+    $('captionInput').value=item.caption||'';
+    $('countLabel').textContent=String(current+1).padStart(2,'0')+' / '+String(items.length).padStart(2,'0');
+    $('slideInfo').textContent=item.name+' · '+(item.type==='video'?'Video':'Photo');
+    const dots=$('dots');dots.replaceChildren();
+    items.forEach((it,index)=>{const d=document.createElement('button');d.className='dot'+(index===current?' active':'');d.setAttribute('aria-label','Show moment '+(index+1));d.title=it.name;d.addEventListener('click',()=>{current=index;render()});dots.append(d)});
+  }
+  function setTheme(next){theme=next;stage.className='stage '+theme;document.querySelectorAll('.tab').forEach(b=>{const active=b.dataset.theme===theme;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))})}
+  function stopSlides(){slideshow=false;clearInterval(timer);timer=null;$('playSlides').textContent='▶ Auto-play';$('playSlides').setAttribute('aria-pressed','false')}
+  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));
+  $('prev').addEventListener('click',()=>{if(items.length){current=(current-1+items.length)%items.length;render()}});
+  $('next').addEventListener('click',()=>{if(items.length){current=(current+1)%items.length;render()}});
+  $('playSlides').addEventListener('click',()=>{if(slideshow){stopSlides();return}if(items.length<2){toast('Add at least two photos or videos to start the slideshow.');return}slideshow=true;$('playSlides').textContent='Ⅱ Pause';$('playSlides').setAttribute('aria-pressed','true');timer=setInterval(()=>{current=(current+1)%items.length;render()},3500)});
+  $('fullscreen').addEventListener('click',async()=>{try{if(!document.fullscreenElement)await stage.requestFullscreen();else await document.exitFullscreen()}catch{toast('Fullscreen is not available in this browser.')}});
+  $('mediaUpload').addEventListener('change',e=>{
+    const files=Array.from(e.target.files||[]);let added=0;
+    files.forEach(file=>{if(!file.type.startsWith('image/')&&!file.type.startsWith('video/'))return;items.push({name:file.name,type:file.type.startsWith('video/')?'video':'image',url:URL.createObjectURL(file),caption:''});added++});
+    if(added){current=items.length-added;render();toast(added+' moment'+(added===1?'':'s')+' added to your gallery.')}
+    e.target.value='';
+  });
+  $('saveCaption').addEventListener('click',()=>{if(!items.length){toast('Add a photo or video first.');return}items[current].caption=cleanCaption($('captionInput').value);render();toast('Caption updated!')});
+  $('removeMedia').addEventListener('click',()=>{if(!items.length)return;stopSlides();items.forEach(item=>URL.revokeObjectURL(item.url));items.splice(0,items.length);current=0;render();toast('Gallery cleared.')});
+  $('messageText').value=localStorage.getItem('moments-message')||'Some moments become memories, and some memories become a part of us.';
+  $('messageFrom').value=localStorage.getItem('moments-from')||'With love';
+  function renderMessage(){const msg=$('messageText').value.trim()||'Your message will appear here.';$('messagePreview').textContent='“'+msg+'”';$('fromPreview').textContent='— '+($('messageFrom').value.trim()||'With love')}
+  $('saveMessage').addEventListener('click',()=>{try{localStorage.setItem('moments-message',$('messageText').value);localStorage.setItem('moments-from',$('messageFrom').value)}catch{}renderMessage();toast('Your message has been updated in this browser.')});
+  $('messageText').addEventListener('input',renderMessage);$('messageFrom').addEventListener('input',renderMessage);renderMessage();
+  const audio=$('audio');
+  $('musicUpload').addEventListener('change',e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(musicUrl)URL.revokeObjectURL(musicUrl);musicUrl=URL.createObjectURL(file);audio.src=musicUrl;$('musicName').textContent=file.name;$('musicStatus').textContent='Ready to play · '+(file.size/1024/1024).toFixed(1)+' MB';$('musicToggle').disabled=false;$('musicStop').disabled=false;$('musicToggle').textContent='▶ Play music';e.target.value='';});
+  $('musicToggle').addEventListener('click',async()=>{if(audio.paused){try{await audio.play();$('musicToggle').textContent='Ⅱ Pause music'}catch{toast('Could not play this audio file. Try another format.')}}else{audio.pause();$('musicToggle').textContent='▶ Play music'}});
+  $('musicStop').addEventListener('click',()=>{audio.pause();audio.currentTime=0;$('musicToggle').textContent='▶ Play music'});
+  audio.addEventListener('ended',()=>{$('musicToggle').textContent='▶ Play music'});
+  render();setTheme('dreamy');
+  window.addEventListener('beforeunload',()=>{items.forEach(item=>URL.revokeObjectURL(item.url));if(musicUrl)URL.revokeObjectURL(musicUrl)});
+})();
+</script>
+</body>
+</html>
