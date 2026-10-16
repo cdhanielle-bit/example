@@ -13,6 +13,9 @@ create table if not exists public.gallery_uploads (
 
 alter table public.gallery_uploads enable row level security;
 
+grant select on public.gallery_uploads to anon, authenticated;
+grant insert, delete on public.gallery_uploads to authenticated;
+
 drop policy if exists "Anyone can view published gallery entries" on public.gallery_uploads;
 create policy "Anyone can view published gallery entries"
 on public.gallery_uploads for select
