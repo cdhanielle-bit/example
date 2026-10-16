@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10111d">
+<title>Moments — Public Community Gallery</title>
+<style>
+:root{--bg:#10111d;--panel:#1b1c2d;--ink:#f7f6ff;--muted:#b8bad0;--accent:#d4c0ff;--pink:#ffc3dc;--line:#ffffff20}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#302446,transparent 42%),radial-gradient(ellipse at 95% 15%,#1e3543,transparent 34%),var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}.wrap{width:min(1100px,calc(100% - 30px));margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 0;flex-wrap:wrap}.brand{display:flex;gap:10px;align-items:center;color:var(--ink);text-decoration:none;font-weight:850;letter-spacing:.06em}.mark{display:grid;place-items:center;width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--pink));color:#21182e;font-size:21px}.btn{border:1px solid var(--line);border-radius:999px;padding:10px 15px;color:var(--ink);background:#ffffff0c;font:inherit;font-weight:750;cursor:pointer}.btn:hover{background:#ffffff18}.btn.primary{border:0;background:linear-gradient(120deg,var(--accent),var(--pink));color:#21182e}.btn:disabled{opacity:.5;cursor:not-allowed}.hero{padding:40px 0 20px}.eyebrow{font-size:.76rem;letter-spacing:.17em;text-transform:uppercase;color:var(--pink);font-weight:800}.hero h1{font-size:clamp(2.5rem,6vw,4.6rem);letter-spacing:-.06em;line-height:1.02;margin:10px 0}.hero p,.muted{color:var(--muted)}.panel{padding:22px;border:1px solid var(--line);border-radius:22px;background:#1b1c2ddd;margin:18px 0}.auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}.field input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#10111d;color:var(--ink);font:inherit}.auth-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.status{font-size:.9rem;color:var(--muted);margin-top:12px;overflow-wrap:anywhere}.upload-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.upload-row input[type=file]{max-width:100%;color:var(--muted)}.upload-row input[type=file]::file-selector-button{border:1px solid var(--line);border-radius:9px;padding:9px;background:#ffffff12;color:var(--ink);margin-right:10px;cursor:pointer}.small{font-size:.82rem;color:var(--muted)}.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0 40px}.tile{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#ffffff08;min-width:0}.media{height:230px;display:grid;place-items:center;background:#10111d}.media img,.media video{width:100%;height:100%;object-fit:cover}.media audio{width:92%}.meta{padding:12px}.filename{overflow-wrap:anywhere;font-weight:700}.details{font-size:.78rem;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.delete{margin-top:10px;font-size:.8rem;padding:7px 11px}.empty{grid-column:1/-1;text-align:center;padding:40px 15px;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}.hidden{display:none!important}.footer{color:var(--muted);font-size:.82rem;padding:22px 0;border-top:1px solid var(--line)}@media(max-width:750px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.auth-grid{grid-template-columns:1fr}}@media(max-width:520px){.gallery{grid-template-columns:1fr}.media{height:260px}.panel{padding:16px}}
+</style>
+</head>
+<body>
+<header class="wrap top"><a class="brand" href="index.html"><span class="mark">✦</span><span>MOMENTS<span style="color:var(--pink)">.</span></span></a><a class="btn" href="index.html">← Local Gallery Creator</a></header>
+<main class="wrap">
+<section class="hero"><div class="eyebrow">Shared online gallery</div><h1>Upload a moment.<br><span style="background:linear-gradient(100deg,#e2d5ff,#ffbfd9 65%,#ffdda9);background-clip:text;color:transparent">Share it with everyone.</span></h1><p>Sign in to publish a photo, video, or audio file. Published files are stored online and can be viewed by other visitors.</p></section>
+<section class="panel" id="setupWarning"><strong>One-time setup needed</strong><p class="muted">Connect this page to your Supabase project first. Follow the <a href="SUPABASE_SETUP.md" style="color:var(--pink)">setup guide</a> and replace the two placeholder values in this page. Do not put a service-role key here.</p></section>
+<section class="panel hidden" id="authPanel"><div class="eyebrow">Your account</div><h2 id="authHeading">Sign in or create an account</h2><div class="auth-grid"><div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" minlength="8" placeholder="At least 8 characters"></div></div><div class="auth-actions"><button class="btn primary" id="signIn">Sign in</button><button class="btn" id="signUp">Create account</button><button class="btn hidden" id="signOut">Sign out</button></div><div class="status" id="authStatus" role="status" aria-live="polite">You must sign in before publishing files.</div></section>
+<section class="panel hidden" id="uploadPanel"><div class="eyebrow">Publish a file</div><h2>Choose from your computer</h2><p class="muted">Accepted: images, videos, or audio · Maximum 25 MB per file.</p><div class="upload-row"><input id="fileInput" type="file" accept="image/*,video/*,audio/*"><button class="btn primary" id="uploadBtn" disabled>Publish file ↗</button></div><div class="status" id="uploadStatus" role="status" aria-live="polite"></div></section>
+<section><div class="eyebrow">Available to visitors</div><h2>Community uploads</h2><p class="muted">Anyone can view these published files. Only the account that uploaded a file can delete it.</p><div class="gallery" id="gallery"><div class="empty">Loading published files…</div></div></section>
+</main><footer class="wrap footer">✦ MOMENTS · Only publish files you have permission to share.</footer>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+// These are public client settings, not secrets. Never paste a service-role key here.
+const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+const SUPABASE_PUBLISHABLE_KEY = 'YOUR_SUPABASE_PUBLISHABLE_KEY';
+const BUCKET = 'community-media';
+const MAX_BYTES = 25 * 1024 * 1024;
+const $ = id => document.getElementById(id);
+const configured = /^https:\/\/[^\s]+\.supabase\.co$/.test(SUPABASE_URL) && !SUPABASE_URL.includes('YOUR_') && !SUPABASE_PUBLISHABLE_KEY.includes('YOUR_');
+let supabase = null, currentUser = null;
+function status(id, message) { $(id).textContent = message; }
+function safeName(name) { return name.normalize('NFKD').replace(/[^a-zA-Z0-9._-]+/g, '-').replace(/^-+|-+$/g, '').slice(-100) || 'upload'; }
+function kindOf(file) { if (file.type.startsWith('image/')) return 'image'; if (file.type.startsWith('video/')) return 'video'; if (file.type.startsWith('audio/')) return 'audio'; return null; }
+function publicUrl(path) { return supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl; }
+function renderMedia(row) {
+  const tile = document.createElement('article'); tile.className = 'tile';
+  const media = document.createElement('div'); media.className = 'media';
+  const url = publicUrl(row.object_path);
+  let el;
+  if (row.media_type === 'image') { el = document.createElement('img'); el.loading = 'lazy'; el.alt = row.original_name; }
+  else if (row.media_type === 'video') { el = document.createElement('video'); el.controls = true; el.preload = 'metadata'; }
+  else { el = document.createElement('audio'); el.controls = true; el.preload = 'none'; }
+  el.src = url; media.append(el);
+  const meta = document.createElement('div'); meta.className = 'meta';
+  const name = document.createElement('div'); name.className = 'filename'; name.textContent = row.original_name;
+  const details = document.createElement('div'); details.className = 'details'; details.textContent = new Date(row.created_at).toLocaleString();
+  meta.append(name, details);
+  if (currentUser && currentUser.id === row.owner) {
+    const del = document.createElement('button'); del.className = 'btn delete'; del.textContent = 'Delete my upload';
+    del.addEventListener('click', () => deleteUpload(row, del)); meta.append(del);
+  }
+  tile.append(media, meta); return tile;
+}
+async function loadUploads() {
+  const gallery = $('gallery'); gallery.replaceChildren();
+  const { data, error } = await supabase.from('gallery_uploads').select('id,owner,object_path,original_name,media_type,created_at').order('created_at', { ascending: false }).limit(200);
+  if (error) { const p = document.createElement('div'); p.className = 'empty'; p.textContent = 'Could not load uploads. Check the Supabase setup and SQL policies.'; gallery.append(p); console.error(error); return; }
+  if (!data.length) { const p = document.createElement('div'); p.className = 'empty'; p.textContent = 'No published files yet. Sign in and publish the first one!'; gallery.append(p); return; }
+  data.forEach(row => gallery.append(renderMedia(row)));
+}
+async function refreshAuth() {
+  const { data } = await supabase.auth.getSession();
+  currentUser = data.session?.user || null;
+  $('authHeading').textContent = currentUser ? 'Signed in' : 'Sign in or create an account';
+  $('signIn').classList.toggle('hidden', !!currentUser);
+  $('signUp').classList.toggle('hidden', !!currentUser);
+  $('signOut').classList.toggle('hidden', !currentUser);
+  $('uploadPanel').classList.toggle('hidden', !currentUser);
+  status('authStatus', currentUser ? 'Signed in as ' + currentUser.email : 'You must sign in before publishing files.');
+  await loadUploads();
+}
+async function deleteUpload(row, button) {
+  if (!confirm('Delete this published file? This cannot be undone.')) return;
+  button.disabled = true;
+  const { error: storageError } = await supabase.storage.from(BUCKET).remove([row.object_path]);
+  if (storageError) { status('uploadStatus', 'Could not delete the file: ' + storageError.message); button.disabled = false; return; }
+  const { error } = await supabase.from('gallery_uploads').delete().eq('id', row.id);
+  if (error) { status('uploadStatus', 'File removed from storage, but its listing could not be removed. Contact the site administrator.'); return; }
+  status('uploadStatus', 'Your upload was deleted.');
+  await loadUploads();
+}
+if (!configured) {
+  $('setupWarning').classList.remove('hidden');
+  $('authPanel').classList.add('hidden');
+} else {
+  $('setupWarning').classList.add('hidden');
+  $('authPanel').classList.remove('hidden');
+  supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  $('signIn').addEventListener('click', async () => {
+    const { error } = await supabase.auth.signInWithPassword({ email: $('email').value.trim(), password: $('password').value });
+    status('authStatus', error ? error.message : 'Signed in successfully.');
+    if (!error) await refreshAuth();
+  });
+  $('signUp').addEventListener('click', async () => {
+    const email = $('email').value.trim(), password = $('password').value;
+    if (password.length < 8) { status('authStatus', 'Please use a password with at least 8 characters.'); return; }
+    const { data, error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: location.href.split('#')[0] } });
+    status('authStatus', error ? error.message : (data.session ? 'Account created and signed in.' : 'Account created. Check your email to confirm it, then sign in.'));
+    if (!error && data.session) await refreshAuth();
+  });
+  $('signOut').addEventListener('click', async () => { const { error } = await supabase.auth.signOut(); status('authStatus', error ? error.message : 'Signed out.'); await refreshAuth(); });
+  supabase.auth.onAuthStateChange(() => { setTimeout(() => refreshAuth(), 0); });
+  $('fileInput').addEventListener('change', () => { $('uploadBtn').disabled = !$('fileInput').files?.length; status('uploadStatus', ''); });
+  $('uploadBtn').addEventListener('click', async () => {
+    const file = $('fileInput').files?.[0];
+    if (!currentUser) { status('uploadStatus', 'Sign in before publishing.'); return; }
+    if (!file) { status('uploadStatus', 'Choose a file first.'); return; }
+    const mediaType = kindOf(file);
+    if (!mediaType) { status('uploadStatus', 'Only image, video, and audio files are supported.'); return; }
+    if (file.size > MAX_BYTES) { status('uploadStatus', 'That file is larger than 25 MB. Choose a smaller file.'); return; }
+    const path = currentUser.id + '/' + crypto.randomUUID() + '-' + safeName(file.name);
+    const btn = $('uploadBtn'); btn.disabled = true; btn.textContent = 'Uploading…';
+    status('uploadStatus', 'Uploading your file securely…');
+    try {
+      const { error: uploadError } = await supabase.storage.from(BUCKET).upload(path, file, { contentType: file.type, upsert: false });
+      if (uploadError) throw uploadError;
+      const { error: rowError } = await supabase.from('gallery_uploads').insert({ owner: currentUser.id, object_path: path, original_name: file.name.slice(0, 255), media_type: mediaType });
+      if (rowError) { await supabase.storage.from(BUCKET).remove([path]); throw rowError; }
+      $('fileInput').value = '';
+      status('uploadStatus', 'Published! Other visitors can now see your file.');
+      await loadUploads();
+    } catch (error) {
+      console.error(error); status('uploadStatus', 'Upload failed: ' + (error.message || 'Check your bucket, account, and policies.'));
+    } finally { btn.disabled = !$('fileInput').files?.length; btn.textContent = 'Publish file ↗'; }
+  });
+  refreshAuth();
+}
+</script>
+</body></html>
