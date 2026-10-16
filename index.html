@@ -28,7 +28,7 @@
   <section class="wrap section" id="studio">
     <div class="section-head"><div><div class="eyebrow">01 / Make it yours</div><h2>Your moving memory gallery</h2><div class="muted">Choose a template, then browse your moments.</div></div><span class="muted" id="countLabel">01 / 01</span></div>
     <div class="workspace">
-      <div class="toolbar"><div class="tabs" role="group" aria-label="Gallery templates"><button class="tab active" data-theme="dreamy">Dreamy</button><button class="tab" data-theme="scrapbook">Scrapbook</button><button class="tab" data-theme="polaroid">Polaroid</button><button class="tab" data-theme="cinema">Cinema</button></div><div class="tools"><button class="btn" id="playSlides" aria-pressed="false">▶ Auto-play</button><button class="btn" id="fullscreen">⛶ Fullscreen</button></div></div>
+      <div class="toolbar"><div class="tabs" role="group" aria-label="Gallery templates"><button class="tab active" data-theme="dreamy">Dreamy</button><button class="tab" data-theme="scrapbook">Scrapbook</button><button class="tab" data-theme="polaroid">Polaroid</button><button class="tab" data-theme="cinema">Cinema</button></div><div class="tools"><button class="btn" id="shuffle" title="Show a random moment">⤨ Shuffle</button><button class="btn" id="playSlides" aria-pressed="false">▶ Auto-play</button><button class="btn" id="fullscreen">⛶ Fullscreen</button></div></div>
       <div class="stage dreamy" id="stage"><div class="stage-inner"><button class="nav-arrow" id="prev" aria-label="Previous moment">‹</button><div class="media-frame" id="mediaFrame"><div class="empty-art"><span class="emoji">✧</span><strong>Your moments go here</strong><span>Add photos or videos below to begin.</span></div><div class="slide-caption" id="caption">Every little moment matters.</div></div><button class="nav-arrow" id="next" aria-label="Next moment">›</button></div></div>
       <div class="stage-footer"><div class="muted" id="slideInfo">Your gallery is ready for its first memory.</div><div class="dots" id="dots" aria-label="Choose a moment"></div><button class="btn" id="removeMedia">Clear gallery</button></div>
     </div>
@@ -40,7 +40,7 @@
       <div class="upload-card"><div class="step">02 — SOUNDTRACK</div><h3>Your background music</h3><p>Choose an audio file you have permission to use, then press play.</p><input id="musicUpload" type="file" accept="audio/*" aria-label="Upload background music"></div>
       <div class="upload-card"><div class="step">03 — WORDS</div><h3>A caption for this moment</h3><p>Change the caption shown on the current photo or video.</p><div class="field"><input id="captionInput" maxlength="100" placeholder="e.g. A day I'll always remember" aria-label="Current moment caption"></div><button class="btn" id="saveCaption">Save caption</button></div>
     </div>
-    <p class="notice">Privacy note: selected photos, videos, and music are previewed in this browser; they are not uploaded to GitHub automatically. Keep a copy of your original files.</p>
+    <p class="notice">Tip: you can also drag photos or videos and drop them directly onto the gallery. Use ← and → on your keyboard to browse moments. Privacy note: selected media stays in this browser and is not uploaded to GitHub automatically.</p>
   </section>
   <section class="wrap section" id="message">
     <div class="section-head"><div><div class="eyebrow">03 / Say what matters</div><h2>Leave a little note</h2><div class="muted">Write something heartfelt to display alongside your memories.</div></div></div>
@@ -93,16 +93,17 @@
   function setTheme(next){theme=next;stage.className='stage '+theme;document.querySelectorAll('.tab').forEach(b=>{const active=b.dataset.theme===theme;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))})}
   function stopSlides(){slideshow=false;clearInterval(timer);timer=null;$('playSlides').textContent='▶ Auto-play';$('playSlides').setAttribute('aria-pressed','false')}
   document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));
+  $('shuffle').addEventListener('click',()=>{if(items.length<2){toast('Add at least two moments to shuffle.');return}let next=current;while(next===current)next=Math.floor(Math.random()*items.length);current=next;render();toast('A random memory, just for you ✦')});
+  function addMediaFiles(fileList){const files=Array.from(fileList||[]);let added=0;files.forEach(file=>{if(!file.type.startsWith('image/')&&!file.type.startsWith('video/'))return;items.push({name:file.name,type:file.type.startsWith('video/')?'video':'image',url:URL.createObjectURL(file),caption:''});added++});if(added){current=items.length-added;render();toast(added+' moment'+(added===1?'':'s')+' added to your gallery.')}else if(files.length){toast('Please drop image or video files only.')}return added}
+  stage.addEventListener('dragover',e=>{e.preventDefault();stage.style.outline='2px dashed var(--accent2)';stage.style.outlineOffset='-8px'});
+  stage.addEventListener('dragleave',e=>{if(!stage.contains(e.relatedTarget)){stage.style.outline='';stage.style.outlineOffset=''}});
+  stage.addEventListener('drop',e=>{e.preventDefault();stage.style.outline='';stage.style.outlineOffset='';addMediaFiles(e.dataTransfer.files)});
+  window.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey)return;const tag=(document.activeElement&&document.activeElement.tagName||'').toLowerCase();if(['input','textarea','select'].includes(tag)||document.activeElement?.isContentEditable)return;if(e.key==='ArrowLeft'&&items.length){current=(current-1+items.length)%items.length;render()}if(e.key==='ArrowRight'&&items.length){current=(current+1)%items.length;render()}if(e.key===' '&&document.activeElement===document.body){e.preventDefault();$('playSlides').click()}});
   $('prev').addEventListener('click',()=>{if(items.length){current=(current-1+items.length)%items.length;render()}});
   $('next').addEventListener('click',()=>{if(items.length){current=(current+1)%items.length;render()}});
   $('playSlides').addEventListener('click',()=>{if(slideshow){stopSlides();return}if(items.length<2){toast('Add at least two photos or videos to start the slideshow.');return}slideshow=true;$('playSlides').textContent='Ⅱ Pause';$('playSlides').setAttribute('aria-pressed','true');timer=setInterval(()=>{current=(current+1)%items.length;render()},3500)});
   $('fullscreen').addEventListener('click',async()=>{try{if(!document.fullscreenElement)await stage.requestFullscreen();else await document.exitFullscreen()}catch{toast('Fullscreen is not available in this browser.')}});
-  $('mediaUpload').addEventListener('change',e=>{
-    const files=Array.from(e.target.files||[]);let added=0;
-    files.forEach(file=>{if(!file.type.startsWith('image/')&&!file.type.startsWith('video/'))return;items.push({name:file.name,type:file.type.startsWith('video/')?'video':'image',url:URL.createObjectURL(file),caption:''});added++});
-    if(added){current=items.length-added;render();toast(added+' moment'+(added===1?'':'s')+' added to your gallery.')}
-    e.target.value='';
-  });
+  $('mediaUpload').addEventListener('change',e=>{addMediaFiles(e.target.files);e.target.value=''});
   $('saveCaption').addEventListener('click',()=>{if(!items.length){toast('Add a photo or video first.');return}items[current].caption=cleanCaption($('captionInput').value);render();toast('Caption updated!')});
   $('removeMedia').addEventListener('click',()=>{if(!items.length)return;stopSlides();items.forEach(item=>URL.revokeObjectURL(item.url));items.splice(0,items.length);current=0;render();toast('Gallery cleared.')});
   $('messageText').value=localStorage.getItem('moments-message')||'Some moments become memories, and some memories become a part of us.';
