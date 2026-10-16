@@ -27,7 +27,7 @@
 </section>
 </main>
 <footer class="wrap footer">✦ MOMENTS · Made for the things worth remembering.</footer>
-<div class="bottom-cta"><span id="ctaStatus">Choose your files and style</span><button class="btn primary" id="createBtn">Create my gallery ↗</button></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="bottom-cta"><span id="ctaStatus">Choose your files and style</span><button class="btn primary" id="createBtn">Create &amp; Open Gallery ↗</button></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (()=> {
 const $=id=>document.getElementById(id), files=[], sampleFiles=[
@@ -45,7 +45,7 @@ document.querySelectorAll('.theme').forEach(btn=>btn.addEventListener('click',()
 $('sampleBtn').addEventListener('click',()=>{files.filter(f=>!f.sample&&f.previewUrl).forEach(f=>{URL.revokeObjectURL(f.previewUrl);objectUrls.delete(f.previewUrl)});files.splice(0,files.length,...sampleFiles.map(f=>({...f})));renderFiles();toast('Three sample photos added. Try creating your gallery!')});
 function openDB(){return new Promise((resolve,reject)=>{const request=indexedDB.open('momentsGalleryDB',1);request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains('projects'))request.result.createObjectStore('projects')};request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)})}
 async function saveProject(project){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction('projects','readwrite');tx.objectStore('projects').put(project,'current');tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>{db.close();reject(tx.error)}})}
-$('createBtn').addEventListener('click',async()=>{if(!files.length){toast('Please add at least one photo or video first.');$('dropZone').scrollIntoView({behavior:'smooth',block:'center'});return}const btn=$('createBtn');btn.disabled=true;btn.textContent='Preparing gallery…';try{const galleryItems=files.map(f=>({name:f.name,type:f.type.startsWith('video/')?'video':'image',blob:f.blob||null,url:f.url||null,caption:f.caption||''}));await saveProject({title:$('galleryTitle').value.trim()||'My Moments',subtitle:$('gallerySubtitle').value.trim(),theme,items:galleryItems,createdAt:Date.now()});window.location.href='gallery.html'}catch(err){console.error(err);toast('Could not save these files in this browser. Try fewer or smaller files.');btn.disabled=false;btn.textContent='Create my gallery ↗'}});
+$('createBtn').addEventListener('click',async()=>{if(!files.length){toast('Please add at least one photo or video first.');$('dropZone').scrollIntoView({behavior:'smooth',block:'center'});return}const btn=$('createBtn');btn.disabled=true;btn.textContent='Preparing gallery…';try{const galleryItems=files.map(f=>({name:f.name,type:f.type.startsWith('video/')?'video':'image',blob:f.blob||null,url:f.url||null,caption:f.caption||''}));await saveProject({title:$('galleryTitle').value.trim()||'My Moments',subtitle:$('gallerySubtitle').value.trim(),theme,items:galleryItems,createdAt:Date.now()});window.location.href='gallery.html'}catch(err){console.error(err);toast('Could not save these files in this browser. Try fewer or smaller files.');btn.disabled=false;btn.textContent='Create & Open Gallery ↗'}});
 window.addEventListener('beforeunload',()=>objectUrls.forEach(url=>URL.revokeObjectURL(url)));renderFiles();
 })();
 </script>
